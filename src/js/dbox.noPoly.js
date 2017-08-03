@@ -8,19 +8,28 @@ if (window.NodeList && !NodeList.prototype.forEach) {
     };
 }
 
+/**
+ *
+ */
 class Dbox {
 
-    constructor({element = '.dbox', dialogBox = '#js-dbox', modal = false} = {}) {
+    /**
+     *
+     * @param element
+     * @param dialogBox
+     * @param modal
+     */
+    constructor({ element = '.dbox', dialogBox = '#js-dbox', modal = false } = {} ) {
 
         this.element = document.querySelectorAll(element);
         this.dialogBox = document.querySelector(dialogBox);
         this.modal = modal;
 
-
         this.lbImage = this.dialogBox.getElementsByTagName('img')[0];
         this.lbCaption = this.dialogBox.getElementsByTagName('p')[0];
 
     }
+
 
     /**
      * open our dialog box, set the image attribute and the caption text
@@ -30,7 +39,6 @@ class Dbox {
 
         this.insertImage(element);
         this.dialogBox.showModal();
-
     }
 
     /**
@@ -54,15 +62,26 @@ class Dbox {
         }
     }
 
+    /**
+     *
+     * @param element
+     */
     insertImage(element) {
         this.lbImage.setAttribute("src", element.getAttribute("href"));
         this.lbImage.setAttribute("alt", element.querySelector("img").getAttribute("alt"));
 
         this.insertLightboxCaption(element);
 
+
         this.updateDialogBG(this.dialogBox, element.querySelector('img'));
     }
 
+
+    /**
+     *
+     * @param element
+     * @returns {string}
+     */
     insertLightboxCaption(element) {
         // see if the parent element - ie a figure element contains a figcaption
         // const isFigcaption = element.parentNode.querySelector('figcaption');
@@ -84,29 +103,65 @@ class Dbox {
 
     }
 
-    updateDialogBG(element, image) {
-        const v = new Vibrant(image);
 
-        const swatches = v.swatches();
+    /**
+     *
+     * @param image
+     */
+    getThumbColor(image) {
+
+        const colorThief = new ColorThief();
+        // return 'rgb(' + colorThief.getColor(image) + ')';
+        return colorThief.getColor(image);
+    }
+
+    /**
+     *
+     * @param element
+     * @param image
+     */
+    updateDialogBG(element, image) {
+
+        const color = this.getThumbColor(image);
 
         const captionBGToUpdate = element.querySelector('.dbox-dialog--container');
         // test for image bg color
         const imgBGToUpdate = element.querySelector('img');
 
-        if (swatches['Vibrant']) {
-            imgBGToUpdate.style.backgroundColor = swatches['Vibrant'].getHex();
-            captionBGToUpdate.style.backgroundColor = swatches['Vibrant'].getHex();
-            this.lbCaption.style.color = swatches['Vibrant'].getBodyTextColor();
+        imgBGToUpdate.style.backgroundColor = 'rgb(' + color + ')';
+        captionBGToUpdate.style.backgroundColor = 'rgb(' + color + ')';
+        this.lbCaption.style.color = this.setTextContrast(color);
 
-        }
-        else {
-            // element.style.backgroundColor = 'rgb(50, 50, 50)';
-            captionBGToUpdate.style.backgroundColor = 'rgb(50, 50, 50)';
-            this.lbCaption.style.color = 'rgb(255, 255, 255)';
-        }
 
     }
 
+    /**
+     * get appropriate text contrast.
+     * @param backgroundColor
+     * @returns {string}
+     *
+     * https://www.w3.org/TR/AERT#color-contrast
+     * Color brightness is determined by the following formula:
+     * ((Red value X 299) + (Green value X 587) + (Blue value X 114)) / 1000
+     * Note: This algorithm is taken from a formula for converting RGB values to YIQ values.
+     * This brightness value gives a perceived brightness for a color.
+     *
+     */
+    setTextContrast(backgroundColor) {
+
+        const brightness = Math.round(((parseInt(backgroundColor[0]) * 299) +
+            (parseInt(backgroundColor[1]) * 587) +
+            (parseInt(backgroundColor[2]) * 114)) / 1000);
+
+        // let foreground = window.getComputedStyle(this.dialogBox.querySelector('p'), null );
+        return (brightness > 125) ? '#000' : '#fff';
+
+    }
+
+
+    /**
+     * run this bad b
+     */
     run() {
 
         this.element.forEach(ele => {
