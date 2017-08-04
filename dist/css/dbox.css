@@ -1,0 +1,149 @@
+@charset "UTF-8";
+:root {
+  --dialog-max-height: 90vh;
+  --cd-lightboxdialog-backdrop: #0b0b0b; }
+
+/* the dialog polyfill css */
+dialog {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: -moz-fit-content;
+  width: -webkit-fit-content;
+  width: fit-content;
+  height: -moz-fit-content;
+  height: -webkit-fit-content;
+  height: fit-content;
+  margin: auto;
+  border: solid;
+  padding: 1em;
+  background: white;
+  color: black;
+  display: none; }
+
+dialog[open] {
+  display: block; }
+
+dialog + .backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(11, 11, 11, 0.8); }
+
+._dialog_overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; }
+
+dialog.fixed {
+  position: fixed;
+  top: 50%;
+  transform: translate(0, -50%); }
+
+/** The acutal dialog element **/
+.dbox-dialog {
+  position: fixed;
+  transform: translate(0, -50%);
+  max-width: 90%;
+  max-height: 90vh;
+  max-height: var(--dialog-max-height);
+  /* this did weird things in Edge 15  ¯\_(ツ)_/¯ */
+  border: none;
+  background: transparent;
+  top: 10vh;
+  font-size: 1rem;
+  padding: 0;
+  /** VH units include the status bar on an Android Device */
+  /** The backdrop of our dialog/lightbox */ }
+  @media screen and (min-width: 43.75em) {
+    .dbox-dialog {
+      top: 3vh;
+      min-width: 600px; } }
+  @media screen and (max-height: 550px) {
+    .dbox-dialog {
+      top: 1vh; } }
+  .dbox-dialog::backdrop {
+    --dbox-dialog-backdrop: rgba(11, 11, 11, 0.8);
+    /** edge 15 doesn't inherit the var in pseudo elements
+https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/11495448/
+*/
+    background: rgba(11, 11, 11, 0.8);
+    background: var(--dbox-dialog-backdrop); }
+
+/** animation for opening the dialog box */
+.dbox-dialog[open] {
+  animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both; }
+
+/** the image caption this is also the alt text for the thumbnail image **/
+.dbox-dialog--container {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.35rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: .5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.2); }
+  @media screen and (min-width: 600px) {
+    .dbox-dialog--container {
+      max-height: 10vh;
+      flex-direction: row;
+      padding: 0 2rem; } }
+
+/** test to match twitters modals */
+.dbox-dialog--content {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6); }
+
+/** our caption text **/
+.dbox-dialog--caption {
+  display: inline;
+  color: #F3F3F3; }
+
+/**
+ * the close button in the dialog box
+ */
+.dbox-dialog--close {
+  background-color: #c92a2a;
+  border-color: #b42626;
+  color: #fff;
+  font-size: 1rem;
+  margin: auto;
+  cursor: auto; }
+  .dbox-dialog--close:hover, .dbox-dialog--close:focus, .dbox-dialog--close:active {
+    background-color: #da4c4c;
+    border-color: #811b1b; }
+  @media screen and (min-width: 600px) {
+    .dbox-dialog--close {
+      margin: auto 0 auto auto; } }
+
+/* the paragraph tag used for our caption */
+.dbox-dialog--caption {
+  font-size: 1rem; }
+
+.dbox-dialog--image {
+  width: auto;
+  max-width: 100%;
+  max-height: calc(90vh - 5vh);
+  max-height: calc(var(--dialog-max-height) - 5vh);
+  /* this did weird things in Edge 15  ¯\_(ツ)_/¯ */
+  object-fit: cover;
+  /** VH units include the status bar on an Android/iOS Device */ }
+  @media screen and (max-height: 550px) {
+    .dbox-dialog--image {
+      max-height: calc(90vh - 20vh);
+      max-height: calc(var(--dialog-max-height) - 20vh);
+      object-fit: contain; } }
+
+/** animation for opening our lightbox */
+@keyframes scale-up-center {
+  0% {
+    transform: scale(0.5); }
+  100% {
+    transform: scale(1); } }
