@@ -1,0 +1,127 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Dialog Lightbox Demo</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- The dbox css -->
+    <link rel="stylesheet" href="dist/css/dbox.css">
+    <!-- the demo styles to display the images in a flex grid -->
+    <link rel="stylesheet" href="dist/css/demo.css">
+    <!-- prism css to highlight our code examples -->
+    <link rel="stylesheet" href="src/demo/prism.css">
+    <!--<link rel="stylesheet" href="src/css/dialog-polyfill.css">-->
+
+
+    <script src="dist/js/dbox.min.js" defer></script>
+    <script src="src/demo/prism.js"></script>
+    <script src="src/js/polyfill/objectFitPolyfill.min.js"></script>
+
+</head>
+<body>
+
+<main>
+    <div class="container">
+        <h1>Dialog Lightbox as a Modal Demo</h1>
+    </div>
+    <div class="container">
+
+
+        <figure class="lightbox-figure">
+            <a class="dbox" href="img/640.png">
+
+                <img sizes="(min-width: 530px) 25vw, 100vw"
+                     srcset="img/640-177w.png 177w,
+                     img/640-240w.png 240w,
+                     img/640-321w.png 321w,
+                     img/thumb/640-th.png 367w"
+
+                     src="img/thumb/640-th.png"
+                     alt="orange rectangle with the number 640 in the center"
+                     class="dialog-lightbox-image"
+                     width="100%"
+
+                >
+            </a>
+        </figure>
+
+        <figure class="lightbox-figure">
+            <a class="dbox" href="img/lena.jpg">
+
+                <img sizes="25vw" src="img/thumb/lena-th.jpg"
+                     alt="lena reference image"
+                     class="dialog-lightbox-image"
+                     width="100%"
+
+                >
+            </a>
+        </figure>
+
+        <figure class="lightbox-figure">
+            <a class=" dbox" href="img/mp4webm.jpg">
+
+                <img sizes="25vw" src="img/thumb/mp4webm-th.jpg"
+                     alt="webm logo"
+                     class="dialog-lightbox-image"
+                     width="100%"
+                >
+            </a>
+        </figure>
+    </div>
+
+    <div class="usage-container">
+        <p>
+            These images will open in a lightbox as a modal. Meaning you have to click the close button or hit your
+            escape key on your keyboard.
+        </p>
+        <p><b>Setup:</b></p>
+        <p>
+            Your HTML markup will not need to change. You will though need to pass <code class="language-javascript">modal:
+            true</code> to the constructor.
+        </p>
+        <pre class="language-markup"><code>&lt;script&gt;
+  document.addEventListener("DOMContentLoaded", function() {
+    let modal = new Dbox({
+      modal: true
+    });
+    modal.run();
+  });
+&lt;/script&gt;</code></pre>
+        <hr>
+        <section>
+            <h1>Live Examples</h1>
+            <ul>
+                <li><a href="/index.html">Demo Page Home </a></li>
+                <li><a href="/dbox-classes.html">Changing classes or an ID</a></li>
+            </ul>
+        </section>
+    </div>
+</main>
+
+<dialog id="js-dbox" class="dbox-dialog">
+
+    <div class="dbox-dialog--content">
+        <img src="" alt="" class="dbox-dialog--image">
+
+        <div class="dbox-dialog--container">
+            <p class="dbox-dialog--caption"></p>
+            <button type="button" class="dbox-dialog--close">close</button>
+        </div>
+
+    </div>
+</dialog>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let modal = new Dbox({
+            modal: true
+        });
+        modal.run();
+    });
+</script>
+</body>
+</html>

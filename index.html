@@ -1,0 +1,274 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Dialog Lightbox Demo</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- The dbox css -->
+    <link rel="stylesheet" href="dist/css/dbox.css">
+    <!-- the demo styles to display the images in a flex grid -->
+    <link rel="stylesheet" href="dist/css/demo.css">
+    <!-- prism css to highlight our code examples -->
+    <link rel="stylesheet" href="src/demo/prism.css">
+    <!--<link rel="stylesheet" href="src/css/dialog-polyfill.css">-->
+
+
+    <script src="dist/js/dbox.min.js" defer></script>
+    <script src="src/demo/prism.js"></script>
+    <script src="src/js/polyfill/objectFitPolyfill.min.js"></script>
+
+</head>
+<body>
+
+<main>
+    <div class="container">
+        <h1>Dialog Lightbox Demo</h1>
+    </div>
+    <div class="container">
+
+
+        <figure class="lightbox-figure">
+            <a class="dbox" href="img/640.png">
+
+                <img sizes="(min-width: 530px) 25vw, 100vw"
+                     srcset="img/640-177w.png 177w,
+                     img/640-240w.png 240w,
+                     img/640-321w.png 321w,
+                     img/thumb/640-th.png 367w"
+
+                     src="img/thumb/640-th.png"
+                     alt="orange rectangle with the number 640 in the center"
+                     class="dialog-lightbox-image"
+                     width="100%"
+
+                >
+            </a>
+        </figure>
+
+        <figure class="lightbox-figure">
+            <a class="dbox" href="img/lena.jpg">
+
+                <img sizes="25vw" src="img/thumb/lena-th.jpg"
+                     alt="lena reference image"
+                     class="dialog-lightbox-image"
+                     width="100%"
+
+                >
+            </a>
+        </figure>
+
+        <figure class="lightbox-figure">
+            <a class=" dbox" href="img/mp4webm.jpg">
+
+                <img sizes="25vw" src="img/thumb/mp4webm-th.jpg"
+                     alt="webm logo"
+                     class="dialog-lightbox-image"
+                     width="100%"
+                >
+            </a>
+        </figure>
+
+        <figure class="lightbox-figure">
+            <a class="dbox" href="img/pineapples-800.jpg">
+
+                <img sizes="25vw" src="img/thumb/pineapples-800-th.jpg"
+                     alt="pinapple in a field"
+                     class="dialog-lightbox-image"
+                     width="100%"
+                >
+            </a>
+        </figure>
+
+        <figure class="lightbox-figure">
+            <a class="dbox" href="img/playground-1.jpg">
+
+                <img sizes="25vw" src="img/thumb/playground-1-th.jpg"
+                     alt="a kids playground"
+                     class="dialog-lightbox-image"
+                     width="100%"
+
+                >
+            </a>
+        </figure>
+
+        <figure class="lightbox-figure">
+            <a class="dbox" href="img/red_panda_stretching-ps.jpg">
+
+                <img sizes="25vw" src="img/thumb/red_panda_stretching-th.jpg"
+                     alt="a red panda being it's natural self which is awesome and is stretching"
+                     class="dialog-lightbox-image"
+                     width="100%"
+                >
+            </a>
+        </figure>
+        <figure class="lightbox-figure">
+            <a class="dbox new-class" href="img/dry-tortuga-np.jpg">
+
+                <img sizes="25vw" src="img/dry-tortuga-np-th.jpg"
+                     alt="dry tortuga national park"
+                     class="dialog-lightbox-image"
+                     width="100%"
+                >
+            </a>
+        </figure>
+    </div>
+
+    <div class="usage-container">
+        <h1>Usage</h1>
+        <hr>
+        <p>
+            In the head of you document insert the dbox.css file found in the <em>dist/css</em> directory followed by
+            the JS file found in <em>dist/js</em> with the defer attribute.
+        </p>
+        <pre class="language-markup"><code>&lt;!doctype html&gt;
+&lt;html lang=""&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta http-equiv="x-ua-compatible" content="ie=edge"&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+
+    &lt;link rel="stylesheet" href="dist/css/dbox.css"&gt;
+    &lt;script src="dist/js/dbox.min.js" defer&gt;&lt;/script&gt;
+
+&lt;/head&gt;</code></pre>
+
+        <p>
+            Each image you wish to show in a light box needs to be wrapped in an anchor tag. The <code
+                class="language-markup">href</code> of the anchor tag should point to the large image you wish to show
+            in the lightbox. For minimal configuration the anchor tag needs to have a class of <code
+                class="language-markup">dbox</code>. Your image tag's alt text will be used as the "caption" in the
+            lightbox.
+        </p>
+
+        <pre class="language-markup"><code>&lt;a class="dbox" href="your/lightbox/image.jpg"&gt;
+    &lt;img src="your/thumbnail/image.jpg"
+         alt="Your ALT Text Used for the lightbox caption"
+         class="dialog-lightbox-image"
+         width="100%" &gt;
+&lt;/a&gt;</code></pre>
+
+        <p>
+            After your image is marked up you need to insert into your page the dialog markup. This markup should be at
+            the <b>END</b> of your page before the closing <code class="language-markup">&lt;/body&gt;</code> tag.
+        </p>
+        <pre class="language-markup"><code>&lt;dialog id="js-dbox" class="dbox-dialog"&gt;
+
+    &lt;div class="dbox-dialog--content"&gt;
+        &lt;img src="" alt="" class="dbox-dialog--image"&gt;
+
+        &lt;div class="dbox-dialog--container"&gt;
+            &lt;p class="dbox-dialog--caption"&gt;&lt;/p&gt;
+            &lt;button type="button"  class="dbox-dialog--close"&gt;close&lt;/button&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/dialog&gt;</code></pre>
+
+
+        <p>
+            Finally at the end of your document (or in your own js file) add in this snippet to initialize the lightbox.
+        </p>
+        <pre class="language-markup"><code>&lt;script&gt;
+    document.addEventListener("DOMContentLoaded", function() {
+        let lightbox = new Dbox();
+        lightbox.run();
+    });
+&lt;/script&gt;</code></pre>
+
+        <hr>
+        <h1>Customization</h1>
+        <hr>
+        <p>
+            <b>Changing the anchor class or ID</b>
+        </p>
+        <p>
+            To change from the default class of <code class="language-markup">dbox</code> add your class or ID to the
+            constructor at the end.
+        </p>
+        <pre class="language-markup"><code>&lt;script&gt;
+  document.addEventListener("DOMContentLoaded", function() {
+    let lightbox = new Dbox({
+      element: '.new-class'
+      // using an id instead of class
+      element: '#new-id'
+    });
+    lightbox.run();
+  });
+&lt;/script&gt;</code></pre>
+
+        <p>
+            <b>Changing the dialog ID or class</b>
+        </p>
+        <pre class="language-markup"><code>&lt;script&gt;
+  document.addEventListener("DOMContentLoaded", function() {
+    let lightbox = new Dbox({
+      dialogBox: '#new-dialog-id'
+      // or a class
+      dialogBox: '.new-dialog-class'
+    });
+    lightbox.run();
+  });
+&lt;/script&gt;</code></pre>
+        <p>
+            <b>Display The Image as a Modal</b>
+        </p>
+        <p>
+            Activating this will only let the image be closed by hitting the "close" button.
+        </p>
+        <pre class="language-markup"><code>&lt;script&gt;
+  document.addEventListener("DOMContentLoaded", function() {
+    let lightbox = new Dbox({
+      modal: true
+    });
+    lightbox.run();
+  });
+&lt;/script&gt;</code></pre>
+
+        <hr>
+        <section>
+            <h1>Browser Support</h1>
+            <p>
+                Internet Explorer 11 and all other Evergreen "Modern" browsers - Edge, Chrome, Firefox, Safari, Opera,
+                Brave. This is because a dialog polyfill is used for browsers that don't support the dialog element
+            </p>
+            <!--<p><b>object-fit</b> is also used. For smaller screen devices this should'nt be a problem. For Edge < 16 if you don't like the 90% width image you'll have to find another solution. see my post-->
+            <!--<a href="https://corydowdy.com/blog/building-lightbox-dialog-element">Building a Lightbox with the Dialog Element</a>-->
+            <!--</p>-->
+        </section>
+        <hr>
+        <section>
+            <h1>Live Examples</h1>
+            <ul>
+                <li><a href="/dbox-modal.html">Modal Example</a></li>
+                <li><a href="/dbox-classes-id.html">Changing classes or an ID</a></li>
+            </ul>
+        </section>
+    </div>
+</main>
+
+<dialog id="js-dbox" class="dbox-dialog">
+
+    <div class="dbox-dialog--content">
+        <img src="" alt="" class="dbox-dialog--image">
+
+        <div class="dbox-dialog--container">
+            <p class="dbox-dialog--caption"></p>
+            <button type="button" class="dbox-dialog--close">close</button>
+        </div>
+
+    </div>
+</dialog>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let lightbox = new Dbox();
+        lightbox.run();
+    });
+</script>
+</body>
+</html>
