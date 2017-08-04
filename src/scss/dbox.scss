@@ -1,0 +1,10 @@
+:root {
+  --dialog-max-height: 90vh;
+  --cd-lightboxdialog-backdrop: #0b0b0b;
+}
+
+/* the dialog polyfill css */
+@import "./src/css/dialog-polyfill";
+//@import 'demo-styles/demo';
+// the dialog box
+@import 'dialog/dialog';
